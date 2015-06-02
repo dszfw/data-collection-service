@@ -1,0 +1,24 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET           /                      controllers.Application.index
+
+GET           /field                 controllers.Application.createFieldPage
+GET           /fields                controllers.Application.allFieldsPage
+GET           /fields/:id            controllers.Application.fieldByIdPage(id: Long)
+
+# API
+GET           /api/fields            controllers.FieldController.getAll
+GET           /api/fields/:id        controllers.FieldController.get(id: Long)
+POST          /api/fields            controllers.FieldController.post
+DELETE        /api/fields/:id        controllers.FieldController.delete(id: Long)
+PUT           /api/fields/:id        controllers.FieldController.put(id: Long)
+
+# Map static resources from the /public folder to the /assets URL path
+GET           /assets/*file          controllers.Assets.at(path="/public", file)
+
+
+# Tests
+GET           /test                 controllers.Application.testField

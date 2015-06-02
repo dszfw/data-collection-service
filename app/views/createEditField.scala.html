@@ -1,0 +1,114 @@
+@(fieldForm: Form[models.Field], mode: String)
+
+@navContainer("Create/Edit field") {
+    <script type='text/javascript' src='@routes.Assets.at("javascripts/createField.js")'></script>
+    @if(mode.equals("edit")) {
+        <script type='text/javascript'>
+            onSubmitCallback = function(form) {
+                $.ajax({
+                    method: "PUT",
+                    url: "@routes.FieldController.put(fieldForm.get.id)",
+                    data: form.serialize(),
+                    success: function() {
+                        window.location.replace("@routes.Application.allFieldsPage");
+                    },
+                    error: function(xhr) {
+                        failCallback(xhr);
+                    }
+                });
+            }
+        </script>
+    }
+    @if(mode.equals("create")) {
+        <script type='text/javascript'>
+            onSubmitCallback = function(form) {
+                $.post(
+                    "@routes.FieldController.post",
+                    form.serializeJSON(),
+                    function() {
+                        window.location.replace("@routes.Application.allFieldsPage");
+                    })
+                    .fail(failCallback);
+            }
+        </script>
+    }
+    <h1>Create/Edit field</h1>
+
+    <div class="alert alert-danger errorNotification" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="errorMessage">Error</span>
+    </div>
+
+    <form id="fieldForm">
+        <div class="form-group row">
+            <div class="col-md-6">
+            @helper.inputText(
+                fieldForm("aLabel"),
+                '_label -> "Label",
+                'class -> "form-control"
+            )
+            </div>
+            <div class="col-md-3">
+            @helper.checkbox(
+                fieldForm("required"),
+                '_label -> "Required"
+            )
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+            @helper.select(
+                fieldForm("fieldType"),
+                Seq("LINE" -> "Single line text",
+                    "TEXTAREA" -> "Textarea",
+                    "RADIO_BUTTON" -> "Radio button",
+                    "CHECK_BOX" -> "Check box",
+                    "COMBO_BOX" -> "Combobox",
+                    "DATE" -> "Date"),
+                '_label -> "Type",
+                'class -> "form-control"
+            )
+            </div>
+            <div class="col-md-3">
+            @helper.checkbox(
+                fieldForm("active"),
+                '_label -> "Is Active"
+            )
+            </div>
+        </div>
+
+        <div id="optionsBlock">
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label>Options:</label>
+                </div>
+                <div class="col-md-1">
+                    <button id="addOptionButton" type="button" class="btn btn-sm btn-primary">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </div>
+            </div>
+            <div id="optionsInputs">
+                @if(mode.equals("edit")) {
+                    @fieldForm.get.options.map{e =>
+                        <div class="form-group row">
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" name="options[]" value="@e" />
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="delOptionButton btn btn-sm btn-default">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <button id="saveButton" type="submit" class="btn btn-primary">Save</button>
+        <button id="cancelButton" type="button" class="btn btn-default">Cancel</button>
+    </form>
+
+}
