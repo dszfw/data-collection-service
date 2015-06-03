@@ -12,8 +12,12 @@ INSERT INTO field_options (field_id, options) VALUES (5, "Option one");
 INSERT INTO field_options (field_id, options) VALUES (5, "Option two");
 INSERT INTO field_options (field_id, options) VALUES (5, "Option three");
 
-INSERT INTO data (id, field_id, value) VALUES (1, 1, "Maxim");
-INSERT INTO data (id, field_id, value) VALUES (2, 2, "maxim.bobyleu@synesis.ru");
-INSERT INTO data (id, field_id, value) VALUES (3, 2, "maxim.bobyleu@synesis.ru");
-INSERT INTO data (id, field_id, value) VALUES (4, 2, "maxim.bobyleu@synesis.ru");
-INSERT INTO data (id, field_id, value) VALUES (5, 2, "maxim.bobyleu@synesis.ru");
+INSERT INTO records (id) VALUES (1);
+
+INSERT INTO field_data (id, field_id, value, record_id) VALUES (1, 1, "Maxim", 1);
+INSERT INTO field_data (id, field_id, value, record_id) VALUES (2, 2, "maxim.bobyleu@synesis.ru", 1);
+INSERT INTO field_data (id, field_id, value, record_id) VALUES (3, 3, "Male", 1);
+INSERT INTO field_data (id, field_id, value, record_id) VALUES (4, 4, "26.07.1990", 1);
+INSERT INTO field_data (id, field_id, value, record_id) VALUES (5, 5, "Option one", 1);
+INSERT INTO field_data (id, field_id, value, record_id) VALUES (6, 6, "true", 1);
+INSERT INTO field_data (id, field_id, value, record_id) VALUES (7, 7, "a line", 1);

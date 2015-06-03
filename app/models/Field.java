@@ -36,7 +36,7 @@ public class Field {
 
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
     @JsonIgnore
-    public List<Data> records;
+    public List<FieldData> data;
 
     // Custom validation for options
     public String validate() {
