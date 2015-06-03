@@ -21,4 +21,4 @@ GET           /assets/*file          controllers.Assets.at(path="/public", file)
 
 
 # Tests
-GET           /test                 controllers.Application.testField
+GET           /test                  controllers.Application.testField
