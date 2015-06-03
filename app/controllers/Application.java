@@ -1,22 +1,29 @@
 package controllers;
 
+import dao.FieldDAO;
+import dao.RecordDAO;
 import models.Field;
-import models.FieldData;
-import models.FieldType;
 import models.Record;
 import play.mvc.*;
 import play.db.jpa.*;
 import views.html.*;
 import play.data.Form;
 
-import java.util.Arrays;
+import javax.inject.Inject;
+import java.util.List;
 
 public class Application extends Controller {
+
+    @Inject
+    FieldDAO fieldDAO;
+    @Inject
+    RecordDAO recordDAO;
 
     public Result index() {
         return ok(index.render());
     }
 
+    // ---------------------- FIELDS ---------------------------------------------
     public Result allFieldsPage() {
         return ok(fields.render());
     }
@@ -33,17 +40,12 @@ public class Application extends Controller {
         return ok(createEditField.render(Form.form(Field.class), "create"));
     }
 
-    // TODO Should be removed
+    // ---------------------- RESPONSES ------------------------------------------
     @Transactional
-    public Result testField() {
-        Field field = new Field();
-        field.active = true;
-        field.aLabel = "label";
-        field.fieldType = FieldType.COMBO_BOX;
-        field.options = Arrays.asList("one", "two", "three");
-        field.required = true;
-        JPA.em().persist(field);
-        return ok();
+    public Result responsesPage() {
+        List<Field> fields = fieldDAO.findAll();
+        List<Record> records = recordDAO.findAll();
+        return ok(responses.render(records, fields));
     }
 
 }
