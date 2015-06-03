@@ -19,6 +19,7 @@ DELETE        /api/fields/:id        controllers.FieldController.delete(id: Long
 PUT           /api/fields/:id        controllers.FieldController.put(id: Long)
 
 GET           /api/responses         controllers.ResponseController.getAll
+POST          /api/responses         controllers.ResponseController.post
 
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file          controllers.Assets.at(path="/public", file)

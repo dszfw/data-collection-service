@@ -16,7 +16,7 @@ public class FieldData {
     @ManyToOne(optional = false)
     public Field field;
 
-    @ManyToOne(optional = false)
+    @ManyToOne/*(optional = false)*/
     @JsonIgnore
     public Record record;
 }

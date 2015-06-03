@@ -19,8 +19,11 @@ public class Application extends Controller {
     @Inject
     RecordDAO recordDAO;
 
+    @Transactional
     public Result index() {
-        return ok(index.render());
+        // TODO inactive
+        List<Field> fieldList = fieldDAO.findAll();
+        return ok(index.render(fieldList));
     }
 
     // ---------------------- FIELDS ---------------------------------------------

@@ -9,9 +9,20 @@ import java.util.List;
 @Singleton
 public class RecordDAO {
     @Transactional
+    public Record find(Long id) {
+        Record record = JPA.em().find(Record.class, id);
+        return record;
+    }
+
+    @Transactional
     public List<Record> findAll() {
         List<Record> records = JPA.em().createQuery("select r from Record r").getResultList();
         return records;
+    }
+
+    @Transactional
+    public void save(Record record) {
+        JPA.em().persist(record);
     }
 
 }

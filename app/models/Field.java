@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import play.data.validation.Constraints.*;
 
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -36,7 +37,7 @@ public class Field {
 
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
     @JsonIgnore
-    public List<FieldData> data;
+    public List<FieldData> data = new LinkedList<>();
 
     // Custom validation for options
     public String validate() {

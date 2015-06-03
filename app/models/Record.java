@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -11,5 +12,5 @@ public class Record {
     public Long id;
 
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL)
-    public List<FieldData> data;
+    public List<FieldData> data = new LinkedList<>();
 }
