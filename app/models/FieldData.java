@@ -14,7 +14,6 @@ public class FieldData {
     public String value;
 
     @ManyToOne(optional = false)
-    @JsonIgnore
     public Field field;
 
     @ManyToOne(optional = false)
