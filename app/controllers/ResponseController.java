@@ -27,6 +27,7 @@ public class ResponseController {
 
     @Transactional
     public Result getAll() {
+        // TODO find all active
         List<Record> records = recordDAO.findAll();
         List<Map<String, String>> beJson = new LinkedList<>();
         records.forEach(record -> {
@@ -40,8 +41,8 @@ public class ResponseController {
     @Transactional
     public Result post() {
         Map<String, String> requestData = Form.form()
-                .bindFromRequest()
-                .data();
+            .bindFromRequest()
+            .data();
 
         if (requestData.isEmpty()) {
             return badRequest();
@@ -49,8 +50,9 @@ public class ResponseController {
 
         Record record = new Record();
 
-        requestData.forEach((value, fieldId) -> {
-            Field field = fieldDAO.find(Long.valueOf(fieldId));
+        requestData.forEach((f, value) -> {
+            Long fieldId = Long.valueOf(f.replaceFirst("field_", ""));
+            Field field = fieldDAO.find(fieldId);
             FieldData fieldData = new FieldData();
             fieldData.field = field;
             fieldData.value = value;
@@ -60,6 +62,7 @@ public class ResponseController {
             fieldData.record = record;
         });
 
+        // TODO check for ConstraintViolationException
         recordDAO.save(record);
         return ok();
     }

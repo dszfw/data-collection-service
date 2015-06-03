@@ -30,6 +30,8 @@ public class FieldController {
         return ok(Json.toJson(field));
     }
 
+    // TODO create getAllActive
+
     @Transactional
     public Result getAll() {
         List<Field> fields = fieldDAO.findAll();
