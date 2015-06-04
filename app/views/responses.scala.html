@@ -3,8 +3,6 @@
 @(records: List[Record], fields: List[Field])
 
 @navContainer("Responses") {
-    <script type='text/javascript' src='@routes.Assets.at("javascripts/responses.js")'></script>
-
 
     <h1>Responses</h1>
     <div class="row">
@@ -15,5 +13,10 @@
         </div>
     </div>
 
+    <div id="webSock"></div>
 
+    <script type='text/javascript'>
+        var webSocketUrl = "@routes.ResponseController.wsResponses().webSocketURL()";
+    </script>
+    <script type='text/javascript' src='@routes.Assets.at("javascripts/responses.js")'></script>
 }

@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     var table = $("#responsesTable"),
+        dataTable,
         columns = [];
 
     $.get("/api/fields?active=true", function(resp) {
@@ -13,7 +14,7 @@ $(document).ready(function () {
             };
             columns.push(x);
         });
-        table.dataTable({
+        dataTable = table.DataTable({
             "ajax": {
                 "url": "/api/responses",
                 "dataSrc": ""
@@ -21,5 +22,13 @@ $(document).ready(function () {
             "columns": columns
         });
     });
+
+    var WS = window.MozWebSocket ? MozWebSocket : WebSocket;
+    // TODO Fix hardcoded URL
+    var dateSocket = new WS(webSocketUrl);
+
+    dateSocket.onmessage = function (event) {
+        dataTable.row.add(JSON.parse(event.data)).draw();
+    };
 
 });

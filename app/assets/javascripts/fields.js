@@ -7,6 +7,7 @@ $(document).ready(function () {
             "url": "/api/fields?active=false",
             "dataSrc": ""
         },
+        "pageLength": 15,
         "columns": [
             {"data": "id"},
             {"data": "aLabel"},

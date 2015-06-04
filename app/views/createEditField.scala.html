@@ -1,38 +1,6 @@
 @(fieldForm: Form[models.Field], mode: String)
 
 @navContainer("Create/Edit field") {
-    <script type='text/javascript' src='@routes.Assets.at("javascripts/createField.js")'></script>
-    @if(mode.equals("edit")) {
-        <script type='text/javascript'>
-            onSubmitCallback = function(form) {
-                $.ajax({
-                    method: "PUT",
-                    url: "@routes.FieldController.put(fieldForm.get.id)",
-                    data: form.serialize(),
-                    success: function() {
-                        window.location.replace("@routes.Application.allFieldsPage");
-                    },
-                    error: function(xhr) {
-                        failCallback(xhr);
-                    }
-                });
-            }
-        </script>
-    }
-    @if(mode.equals("create")) {
-        <script type='text/javascript'>
-            onSubmitCallback = function(form) {
-                $.post(
-                    "@routes.FieldController.post",
-                    form.serializeJSON(),
-                    function() {
-                        window.location.replace("@routes.Application.allFieldsPage");
-                    })
-                    .fail(failCallback);
-            }
-        </script>
-    }
-
     <h1>Create/Edit field</h1>
 
     <div class="alert alert-danger errorNotification" role="alert">
@@ -112,4 +80,35 @@
         <button id="cancelButton" type="button" class="btn btn-default">Cancel</button>
     </form>
 
+    <script type='text/javascript' src='@routes.Assets.at("javascripts/createField.js")'></script>
+    @if(mode.equals("edit")) {
+        <script type='text/javascript'>
+            onSubmitCallback = function(form) {
+                $.ajax({
+                    method: "PUT",
+                    url: "@routes.FieldController.put(fieldForm.get.id)",
+                    data: form.serialize(),
+                    success: function() {
+                        window.location.replace("@routes.Application.allFieldsPage");
+                    },
+                    error: function(xhr) {
+                        failCallback(xhr);
+                    }
+                });
+            }
+        </script>
+    }
+    @if(mode.equals("create")) {
+        <script type='text/javascript'>
+            onSubmitCallback = function(form) {
+                $.post(
+                    "@routes.FieldController.post",
+                    form.serializeJSON(),
+                    function() {
+                        window.location.replace("@routes.Application.allFieldsPage");
+                    })
+                    .fail(failCallback);
+            }
+        </script>
+    }
 }

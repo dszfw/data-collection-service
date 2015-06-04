@@ -1,5 +1,6 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import dao.FieldDAO;
 import dao.RecordDAO;
 import models.Field;
@@ -9,13 +10,12 @@ import play.data.Form;
 import play.db.jpa.Transactional;
 import play.libs.Json;
 import play.mvc.Result;
+import play.mvc.WebSocket;
 
 import javax.inject.Inject;
 import javax.validation.ConstraintViolationException;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static play.mvc.Results.*;
 
@@ -25,6 +25,16 @@ public class ResponseController {
     RecordDAO recordDAO;
     @Inject
     FieldDAO fieldDAO;
+
+    private Map<String, WebSocket.Out<JsonNode>> clients = new ConcurrentHashMap<>();
+
+    public  WebSocket<JsonNode> wsResponses() {
+        String uuid = UUID.randomUUID().toString();
+        return WebSocket.whenReady((in, out) -> {
+            clients.put(uuid, out);
+            in.onClose(() -> clients.remove(uuid));
+        });
+    }
 
     @Transactional
     public Result getAll() {
@@ -70,6 +80,15 @@ public class ResponseController {
 
         // TODO check for ConstraintViolationException
         recordDAO.save(record);
+
+        if (!clients.isEmpty()) {
+            clients.forEach((uuid, out) -> {
+                // TODO doube usage
+                Map<String, String> map = new HashMap<>();
+                record.data.forEach(fieldData -> map.put(fieldData.field.aLabel, fieldData.value));
+                out.write(Json.toJson(map));
+            });
+        }
         return ok();
     }
 

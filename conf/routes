@@ -20,6 +20,7 @@ PUT           /api/fields/:id        controllers.FieldController.put(id: Long)
 
 GET           /api/responses         controllers.ResponseController.getAll
 POST          /api/responses         controllers.ResponseController.post
+GET           /ws/responses          controllers.ResponseController.wsResponses
 
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file          controllers.Assets.at(path="/public", file)
