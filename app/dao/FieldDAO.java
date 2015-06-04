@@ -20,4 +20,10 @@ public class FieldDAO {
         List<Field> fields = JPA.em().createQuery("select f from Field f").getResultList();
         return fields;
     }
+
+    @Transactional
+    public List<Field> findAllActive() {
+        List<Field> fields = JPA.em().createQuery("select f from Field f where f.active = true").getResultList();
+        return fields;
+    }
 }

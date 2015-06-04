@@ -58,6 +58,7 @@
     @wrap{
         <label>@field.aLabel @isRequire(field)</label>
         <select class="form-control" name="field_@field.id">
+            <option value="">Select a value</option>
         @field.options.map { o =>
             <option>@o</option>
         }
@@ -84,9 +85,11 @@
 
         <h1>Fill the form, please</h1>
 
-        <div class="alert alert-danger errorNotification" role="alert">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="errorMessage">Error</span>
+        <div class="row">
+            <div class="alert alert-danger errorNotification col-md-6" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="errorMessage">Incorrect data</span>
+            </div>
         </div>
 
         <form id="fieldForm">

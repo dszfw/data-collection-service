@@ -11,6 +11,7 @@ import play.libs.Json;
 import play.mvc.Result;
 
 import javax.inject.Inject;
+import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -56,6 +57,11 @@ public class ResponseController {
             FieldData fieldData = new FieldData();
             fieldData.field = field;
             fieldData.value = value;
+            // TODO FIX IT
+            String isValid = fieldData.validate();
+            if (isValid != null) {
+                throw new ConstraintViolationException(isValid, null);
+            }
             field.data.add(fieldData);
 
             record.data.add(fieldData);

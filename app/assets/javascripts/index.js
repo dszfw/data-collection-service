@@ -18,8 +18,7 @@ $(document).ready(function () {
                     .append($("<h1>Thank you for submitting your data</h1>"));
             },
             error: function(xhr) {
-                //failCallback(xhr);
-                console.log("fail");
+                $(".errorNotification").show();
             }
         });
         return false;

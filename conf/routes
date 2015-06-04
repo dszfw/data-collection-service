@@ -12,7 +12,7 @@ GET           /fields/:id            controllers.Application.fieldByIdPage(id: L
 GET           /responses             controllers.Application.responsesPage
 
 # API
-GET           /api/fields            controllers.FieldController.getAll
+GET           /api/fields            controllers.FieldController.getAll(active)
 GET           /api/fields/:id        controllers.FieldController.get(id: Long)
 POST          /api/fields            controllers.FieldController.post
 DELETE        /api/fields/:id        controllers.FieldController.delete(id: Long)

@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     table.dataTable({
         "ajax": {
-            "url": "/api/fields",
+            "url": "/api/fields?active=false",
             "dataSrc": ""
         },
         "columns": [

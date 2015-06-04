@@ -5,3 +5,7 @@
 #optionsBlock {
     display: none;
 }
+
+.modal-dialog {
+    margin-top: 150px;
+}
