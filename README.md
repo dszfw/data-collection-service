@@ -1,3 +1,4 @@
-# Getting started with Play (Java)
+# Data collection service
 
-This project demonstrate how to create a simple CRUD application with Play.
+https://secure-meadow-8864.herokuapp.com
+https://secure-meadow-8864.herokuapp.com/fields
