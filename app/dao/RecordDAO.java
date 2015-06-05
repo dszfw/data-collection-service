@@ -16,7 +16,7 @@ public class RecordDAO {
 
     @Transactional
     public List<Record> findAll() {
-        List<Record> records = JPA.em().createQuery("select r from Record r").getResultList();
+        List<Record> records = JPA.em().createQuery("from Record", Record.class).getResultList();
         return records;
     }
 

@@ -17,13 +17,13 @@ public class FieldDAO {
 
     @Transactional
     public List<Field> findAll() {
-        List<Field> fields = JPA.em().createQuery("select f from Field f").getResultList();
+        List<Field> fields = JPA.em().createQuery("from Field", Field.class).getResultList();
         return fields;
     }
 
     @Transactional
     public List<Field> findAllActive() {
-        List<Field> fields = JPA.em().createQuery("select f from Field f where f.active = true").getResultList();
+        List<Field> fields = JPA.em().createQuery("from Field f where f.active = true", Field.class).getResultList();
         return fields;
     }
 }
